@@ -1,32 +1,58 @@
-# AnimeSentinel ![Travis CI Status](https://travis-ci.org/Wicloz/AnimeSentinel.svg?branch=master)
-This project will (eventually) aim to create THE streaming site, by streaming videos available on a lot of other streaming sites.
-It will also focus on delivering notifications when new episodes come out so you'll never miss them again.
+<?php
 
-Features will include:
-- Integrate with MyAnimeList so it knows what you are watching.
-- Send you a mail or update to an RSS feed when a new episode for an anime you're watching becomes available.
-- Index which anime are streamed on which locations. Since this is A LOT of data, it must be done dynamically. As in, only start searching for relevant data once a user requests it, then store it forever.
-- <strike>Provide links to locations where a certain anime is streamed. Possibly</strike> stream those video's directly from this site.
+/**
+ * Laravel - A PHP Framework For Web Artisans
+ *
+ * @package  Laravel
+ * @author   Taylor Otwell <taylor@laravel.com>
+ */
 
-UPDATE: The site should be live here, but with questionable stablity: https://anime.wilcodeboer.me/
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader for
+| our application. We just need to utilize it! We'll simply require it
+| into the script here so that we don't have to worry about manual
+| loading any of our classes later on. It feels nice to relax.
+|
+*/
 
-Currently I'm not hosting on any potato, but a potato with the weight, size, loudness and temperature of a jet engine. So I really need an actual server:
-https://sharex.wilcodeboer.me/?id=nFxQ1CXvBayp61S
+require __DIR__.'/../bootstrap/autoload.php';
 
-Guide for development servers (WIP):
-- Required software:
-  - ffmpeg
-  - pip
-    - cfscrape
-    - selenium
-  - firefox
-  - xvfb
-- Included in Homestead:
-  - composer
-  - python >= 2.5
-  - a recent version of nodejs and npm
-  - a webserver
-  - a database
-  - openssl
-  - php7.0, php7.0-curl, other php extensions
-  - php database extension
+/*
+|--------------------------------------------------------------------------
+| Turn On The Lights
+|--------------------------------------------------------------------------
+|
+| We need to illuminate PHP development, so let us turn on the lights.
+| This bootstraps the framework and gets it ready for use, then it
+| will load up this application so that we can run it and send
+| the responses back to the browser and delight our users.
+|
+*/
+
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+/*
+|--------------------------------------------------------------------------
+| Run The Application
+|--------------------------------------------------------------------------
+|
+| Once we have the application, we can handle the incoming request
+| through the kernel, and send the associated response back to
+| the client's browser allowing them to enjoy the creative
+| and wonderful application we have prepared for them.
+|
+*/
+
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
+
+$response->send();
+
+$kernel->terminate($request, $response);
